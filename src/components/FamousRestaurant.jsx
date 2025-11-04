@@ -14,10 +14,10 @@ const Restoran = [
     return (
         <div className="px-[5vw] pt-20 flex justify-center gap-5 flex-wrap">
         <div>
-            <h1 className="text-[#8b0000] text-[2rem] md:text-[3rem] font-bold text-left">
+            <h1 className="text-[#8b0000] text-[2rem] md:text-[2rem] lg:text-[3rem] font-bold text-center md:text-center lg:text-left">
                 Most Famous <br /> Restaurant
             </h1>
-            <div className="flex justify-left -translate-x-10 text">
+            <div className="lg:-translate-x-10 lg:text-15">
                 <ButtonExplore />
             </div>
         </div>
