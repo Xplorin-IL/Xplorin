@@ -10,7 +10,7 @@ const [isHovered, setIsHovered] = useState(false);
 return (
 <Link to="/assistant">
     <motion.div
-    className="fixed right-7 bottom-5 cursor-pointer"
+    className="fixed z-10 right-7 bottom-5 cursor-pointer"
     whileTap={{ scale: 0.95}}
     transition={{ type: "spring", stiffness: 200, damping: 10 }}
     onHoverStart={() => setIsHovered(true)}
