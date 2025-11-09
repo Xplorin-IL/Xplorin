@@ -1,3 +1,6 @@
+import { FaFacebook, FaInstagram, FaGoogle, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
 const Footer = () => {
     return (
         <footer className="bg-[#691C19] mt-20 text-white px-[8vw] py-[6vh] flex flex-col md:flex-row items-start justify-between gap-[4vw]">
@@ -15,11 +18,46 @@ const Footer = () => {
 
             {/* Socmed Icons (sementara teks dulu) */}
             <div className="flex items-center gap-4 text-[1rem] mt-2">
-            <span>Instagram</span>
-            <span>Google</span>
-            <span>Facebook</span>
-            <span>WhatsApp</span>
-            <span>X</span>
+            <a 
+                href=""
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-110"
+            >
+                <FaInstagram />
+            </a>
+            <a 
+                href=""
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-110"
+            >
+                <FaGoogle />
+            </a>
+            <a 
+                href=""
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-110"
+            >
+                <FaFacebook />
+            </a>
+            <a 
+                href=""
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-110"
+            >
+                <FaWhatsapp />
+            </a>
+            <a 
+                href=""
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-110"
+            >
+                <FaXTwitter />
+            </a>
             </div>
         </div>
 

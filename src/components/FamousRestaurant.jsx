@@ -7,7 +7,7 @@ import restoranPempekCandy from "../assets/images/restoranPempekCandy.png";
 const Restoran = [
     { path:"/explore",img: restoranMie, title: "Mie Celor H. Syafei", width: "20vw", height: "auto" },
     { path:"/explore", img: restoranPempekCandy, title: "Pempek Candy", width: "20vw", height: "auto" },
-    { path:"/explore", img: restoranHar, title: "Martabak Har", width: "20vw", height: "auto" },
+    { path:"/explore", img: restoranHar, title: "Martabak Har", width: "20vw", height: "auto",},
     ];
 
     export default function FamousRestaurant() {
@@ -23,13 +23,14 @@ const Restoran = [
         </div>
         <div className="flex justify-between gap-5 items-end">
             {Restoran.map((item, index) => (
-            <Card
+            <Card 
                 path={item.path}
                 key={index}
                 img={item.img}
                 title={item.title}
                 width={item.width}
                 height={item.height}
+                hover={item.hover}
             />
             ))}
         </div>
