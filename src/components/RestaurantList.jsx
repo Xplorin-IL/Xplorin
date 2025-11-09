@@ -1,4 +1,5 @@
 import Card from '../components/Card';
+import CenteredImageText from './CenteredImageText';
 import Flamboyant from "../assets/images/exploreRestaurant_Flamboyant.png";
 import PondokPindangUmak from "../assets/images/exploreRestaurant_PondokPindangUmak.png";
 import MartabakHar from "../assets/images/exploreRestaurant_MartabakHar.png";
@@ -36,12 +37,12 @@ export default function RestaurantList() {
             </svg>
 
             <h1
-                className="relative z-10 text-[var(--secondary-color)] text-[1rem] md:text-[2rem] font-bold text-center bg-[var(--primary-color)] pb-10"
+                className="relative text-[var(--secondary-color)] text-[1rem] md:text-[2rem] font-bold text-center bg-[var(--primary-color)] pb-10"
             >RESTAURANT</h1>
         </div>
         <div 
-            className='relative z-10 bg-[var(--primary-color)]
-                grid grid-cols-1 grid-cols-2 md:grid-cols-3 gap-6 p-6
+            className='relative bg-[var(--primary-color)]
+                grid grid-cols-2 md:grid-cols-3 gap-6 p-6
                 justify-items-center'
         >
             {Restoran.map((item, index) => (
@@ -57,8 +58,12 @@ export default function RestaurantList() {
                         />
                         ))}
         </div>
-        <div>
-            {/* To became legend */}
-        </div>
+        <CenteredImageText 
+        src="/images/SeparatorExplore.png"
+        text="To Became Legend"
+        textColor="text-white"
+        textSize="text-[2rem] md:text-[4rem]"
+        />     
+        
     </>)
 }

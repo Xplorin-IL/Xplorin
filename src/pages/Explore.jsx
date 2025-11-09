@@ -1,6 +1,8 @@
 import MaskotCiko from "../components/MaskotCiko"
 import PopularFoodInPalembang from "../components/PopularFoodInPalembang"
 import RestaurantList from "../components/RestaurantList"
+import ExploreFoodGalery from "../components/ExploreFoodGalery"
+import Footer from '../components/Footer';
 
 
 function Explore(){
@@ -8,7 +10,9 @@ function Explore(){
         <>
             <PopularFoodInPalembang />
             <RestaurantList />
+            <ExploreFoodGalery />
             <MaskotCiko />
+            <Footer />
         </>
     )
 }

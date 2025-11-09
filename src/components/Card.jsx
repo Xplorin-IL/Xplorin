@@ -16,17 +16,17 @@ export default function Card({
                 className={`border-2 border-[#8b0000] rounded-md md:rounded-2xl
                     hover:scale-105 bg-white transition-transform duration-300 text-[#8b0000] 
                      ${hover} ${text}`}                
-                    style={{ width, height, minHeight: "20vh", minWidth: "20vw"}}
+                    style={{ width, height, minHeight: "15vh", minWidth: "20vw"}}
             >
                 <div className="flex justify-center w-full">
                     <img
                     src={img}
                     alt="Gambar Restoran"
                     className="p-2 rounded-md object-cover"
-                    style={{ minHeight: "110%", minWidth: "90%" }}
+                    style={{ minHeight: "110%", minWidth: "100%" }}
                     />
                 </div>
-                    <h1 className="text-center font-bold text-[0.7rem] md:text-[1rem]">{title}</h1>
+                    <h1 className="text-center font-bold text-[0.7rem] md:text-[1rem] px-2 py-2">{title}</h1>
             </div>
         </Link>
     );
