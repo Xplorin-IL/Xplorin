@@ -1,4 +1,3 @@
-// AddReviewTab.jsx
 import React, { useState } from 'react';
 
 const AddReviewTab = () => {
@@ -22,23 +21,20 @@ const AddReviewTab = () => {
     console.log('Submitted Review:', finalFormData);
   };
   
-  // Convert Hex #780B0D to RGB (120, 11, 13)
   const customBackgroundColor = 'rgba(120, 11, 13, 0.3)';
   
   return (
     <nav 
-      // ❗ FIX: Removed 'bg-red-300/80' and replaced with inline style using RGBA
       className="w-full min-h-[60vh] rounded-b-xl -mt-[1px] flex justify-center items-center py-10 px-4 relative overflow-hidden"
-      style={{ backgroundColor: customBackgroundColor }} // Apply the custom color/opacity
+      style={{ backgroundColor: customBackgroundColor }}
     >
       <form className="flex flex-col items-center w-full max-w-md z-10 bg-transparent" onSubmit={handleSubmit}>
         
-        {/* Title */}
         <p className="text-red-800 text-2xl font-bold mb-4">
           Add Your Rating For This Website
         </p>
 
-        {/* ⭐ Interactive Stars */}
+        {/* Interactive Stars */}
         <div className="flex gap-[1vh] mb-[3vh]">
           {[1, 2, 3, 4, 5].map((star) => (
             <button

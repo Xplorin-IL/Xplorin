@@ -14,20 +14,13 @@
     }
 }
 
-/* --- Review Page Specific Global Styles --- */
-
-/* 1. Background Image Class (Required by ReviewPage.jsx) */
 .bg-review {
   background-image: url('./assets/images/review-background.png');
-  background-size: cover; /* Ensures the image covers the area */
-  background-position: center; /* Centers the image */
-  background-attachment: fixed; /* ❗ CRITICAL: Makes the background fixed to the viewport */
-  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-/* 2. Keyframes for the Scrolling Animation (REQUIRED FIX) */
-
-/* Fix for seamless looping */
 @keyframes scroll-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); } 
@@ -38,7 +31,6 @@
   100% { transform: translateX(0); }
 }
 
-/* Ensure .animate-scroll-left and .animate-scroll-right use these keyframes */
 .animate-scroll-left { 
   animation: scroll-left 30s linear infinite; 
 }
@@ -47,7 +39,6 @@
   animation: scroll-right 30s linear infinite; 
 }
 
-/* When the user hovers over the scrolling section, pause the animation */
 .scroller:hover > div {
     animation-play-state: paused;
 }

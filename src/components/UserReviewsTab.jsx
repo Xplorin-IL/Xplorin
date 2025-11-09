@@ -1,33 +1,26 @@
-// UserReviewsTab.jsx
-import React from 'react';
-
-// IMPORT all necessary images from your assets folder
 import Quotation from '../assets/images/quotation.png';
 import QuotationReverse from '../assets/images/quotation-reverse.png';
-import UserIcon from '../assets/images/user-login.png'; // Used for reviewer avatar
+import UserIcon from '../assets/images/user-login.png';
 
-// Sample data structure for a review card, repeated for the scrolling effect
+// Sample review data
 const reviewData = [
   { text: "Great platform! I tried several local dishes based on the recommendations, and every place was worth visiting. Truly captured the taste of Palembang.", reviewerName: "James", reviewerCountry: "Germany", isReverse: false },
   { text: "Saya suka fitur explore-nya, memudahkan saya mencari kuliner sesuai kategori. Pempeknya enak banget, ditambah cuka khas yang bikin nagih!", reviewerName: "Dona", reviewerCountry: "Indonesia", isReverse: false },
   { text: "This platform made my culinary trip so much easier, from street food to traditional restaurants, everything is well organized. A must-use for travelers.", reviewerName: "Zack", reviewerCountry: "United Kingdom", isReverse: false },
   { text: "Pengalaman kuliner di Palembang sangat berkesan. Saya menemukan banyak tempat makan khas, mulai dari pempek sampai tekwan dengan rasa autentik. Website ini benar-benar membantu menemukan spot terbaik.", reviewerName: "Rina", reviewerCountry: "Indonesia", isReverse: false },
-  // Second Row Reviews (Reverse Scroll)
+
   { text: "Such a helpful website. LOVE IT. I can easily find the food that I want to eat...", reviewerName: "Qebib", reviewerCountry: "Arab", isReverse: true },
   { text: "I was amazed by how detailed the reviews are. It felt like having a local friend guiding me through Palembang's hidden food gems", reviewerName: "Alisha", reviewerCountry: "Brunei", isReverse: true },
   { text: "Palembang ternyata punya banyak makanan khas selain pempek. Dari pindang ikan sampai kue maksuba, semua saya temukan lewat website ini.", reviewerName: "Siti", reviewerCountry: "Malaysia", isReverse: true },
   { text: "The recommendations are so useful! I actually found the best pempek in town and even discovered local dishes I had never heard of before. A great guide for food lovers.", reviewerName: "Jess", reviewerCountry: "Singapore", isReverse: true },
 ];
 
-// Duplicate data to ensure seamless loop (needs two full sets)
 const fullForwardSet = reviewData.filter(r => !r.isReverse);
 const forwardReviews = [...fullForwardSet, ...fullForwardSet, ...fullForwardSet, ...fullForwardSet];
 
 const fullReverseSet = reviewData.filter(r => r.isReverse);
 const reverseReviews = [...fullReverseSet, ...fullReverseSet, ...fullReverseSet, ...fullReverseSet];
 
-
-// Sub-component for a single review card
 const ReviewCard = ({ review }) => {
   const { text, reviewerName, reviewerCountry, isReverse } = review;
   const quoteImageSrc = isReverse ? QuotationReverse : Quotation;
@@ -61,15 +54,12 @@ const ReviewCard = ({ review }) => {
 };
 
 const UserReviewsTab = () => {
-  // ❗ FIX: Revert to w-max and ensure margin fix is precise.
-  // w-max lets the browser calculate the width needed for all elements and gaps.
   const scrollLeftClasses = 'flex gap-4 py-2 animate-scroll-left w-max'; 
   const scrollRightClasses = 'flex gap-4 py-2 animate-scroll-right w-max'; 
 
   return (
     <div className="flex flex-col items-center w-full mt-[-1rem] bg-transparent pt-7">
       
-      {/* Rating Header: Retains the max-w-6xl constraint for centering/alignment */}
       <div className="w-full max-w-6xl px-4 mb-10">
         <div className="flex justify-between items-end">
           <h4 className="text-red-800 text-3xl font-bold">
@@ -86,7 +76,6 @@ const UserReviewsTab = () => {
       </div>
       
       {/* Review Loop 1 (Forward Scroll) */}
-      {/* Container forced to w-screen for edge-to-edge scroll */}
       <section className="scroller w-screen overflow-hidden mb-4 -mx-4 sm:-mx-6 lg:-mx-8">
         <div className={scrollLeftClasses}>
           {forwardReviews.map((review, index) => (

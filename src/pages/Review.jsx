@@ -1,4 +1,3 @@
-// Review.jsx
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar'; 
 import AddReviewTab from '../components/AddReviewTab';
@@ -9,8 +8,6 @@ const bodyBackground = 'min-h-screen pt-28 pb-10 flex flex-col items-center font
 const Review = () => {
   const [activeTab, setActiveTab] = useState('addReview');
 
-  // ❗ FIX: Adjusting 'rounded-t-xl' to 'rounded-t-2xl' for potentially smoother curve, 
-  //        and removing horizontal padding from the baseClasses directly.
   const baseClasses = 'py-4 px-8 rounded-t-2xl font-bold text-xl sm:text-2xl border-2 border-red-800 transition-colors duration-300';
   
   const solidClass = `${baseClasses} text-yellow-400 bg-red-800 hover:bg-red-900`;
@@ -30,9 +27,8 @@ const Review = () => {
     <div className={bodyBackground}>
       <Navbar />
 
-      {/* ❗ FIX: Added pl-0 to the section to ensure it starts exactly at the edge of the max-w-6xl container */}
       <div className="z-10 w-full max-w-6xl px-4 flex justify-start mt-12">
-        <section className="flex pl-0"> {/* Adjusted margin for tab buttons */}
+        <section className="flex pl-0">
           <button 
             className={addReviewClasses} 
             onClick={() => setActiveTab('addReview')}
