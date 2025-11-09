@@ -14,3 +14,14 @@
         background-color: #fff;
     }
 }
+
+/* sembunyikan di Chrome / Edge / Safari */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* sembunyikan di Firefox */
+.no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}

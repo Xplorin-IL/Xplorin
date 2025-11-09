@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Animasi1 from "/images/Animation-1.png";
 import Animasi2 from "/images/Animation-2.png";
 import Animasi3 from "/images/Animation-3.png";
@@ -21,7 +21,7 @@ const foodData = [
     },
     ];
 
-    export default function CardSlider() {
+export default function CardSlider() {
     const [current, setCurrent] = useState(0);
 
     // Auto-slide setiap 4 detik
