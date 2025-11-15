@@ -21,7 +21,7 @@ const galleryItems = [
     { img: PindangPatin, path: "/", tittle: "Pindang Patin", },
 ];
 
-export default function ExploreFoodGalery(){
+export default function ExploreFoodGallery(){
     return(
         <section>
             {/* Judul */}

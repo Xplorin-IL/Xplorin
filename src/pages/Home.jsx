@@ -1,5 +1,4 @@
 import TanyaCiko from "../components/TanyaCiko";
-import ButtonExplore from "../components/ButtonExplore";
 import FoodGallery from "../components/FoodGallery";
 import FamousRestaurant from "../components/FamousRestaurant";
 import CardSlider from "../components/CardSlider";
@@ -35,7 +34,6 @@ function Home(){
         <CardSlider/>
         <TanyaCiko/>
         <FoodGallery/>
-        <ButtonExplore/>
         <FamousRestaurant/>
         <Footer />
         <MaskotCiko />

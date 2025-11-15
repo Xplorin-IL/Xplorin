@@ -18,7 +18,7 @@ const Restoran = [
                 Most Famous <br /> Restaurant
             </h1>
             <div className="lg:-translate-x-10 lg:text-15">
-                <ButtonExplore />
+                <ButtonExplore path="/explore#sectionRestaurant" />
             </div>
         </div>
         <div className="flex justify-between gap-5 items-end">

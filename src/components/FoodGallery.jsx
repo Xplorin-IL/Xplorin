@@ -5,6 +5,7 @@ import PempekKecil from "../assets/images/foodGalleryPempekKecil.png";
 import Lenggang from "../assets/images/foodGalleryLenggang.png";
 import MieCelor from "../assets/images/foodGalleryMieCelor.png"
 import { NavLink } from "react-router-dom";
+import ButtonExplore from "../components/ButtonExplore";
 
 const galleryItems = [
   { img: KapalSelem, path: "/" },
@@ -35,6 +36,10 @@ export default function FoodGallery() {
           </NavLink>
         ))}
       </div>
+      <div className="flex justify-center">
+        <ButtonExplore path="/explore#sectionFoodGallery" />
+      </div>
+
     </section>
   );
 }
