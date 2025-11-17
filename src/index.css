@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @layer base {
     :root {
         --primary-color: #780b0d;
@@ -26,3 +25,31 @@
     -ms-overflow-style: none; /* IE 10+ */
 }
 
+.bg-review {
+  background-image: url('./assets/images/review-background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll-left { 
+  animation: scroll-left 30s linear infinite; 
+}
+
+.animate-scroll-right { 
+  animation: scroll-right 30s linear infinite; 
+}
+
+.scroller:hover > div {
+    animation-play-state: paused;
+}
