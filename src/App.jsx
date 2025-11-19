@@ -15,20 +15,26 @@ import { Profile } from './pages/Profile';
 function App() {
     return(
         <BrowserRouter>
-            <Navbar />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/explore" element={<Explore />} />
-                <Route path="/assistant" element={<Assistant />} />
-                <Route path="/review" element={<Review />} />
-                <Route path="/about" element={<About />} />
-                <Route path='/login'element={<Login />}/>
-                <Route path='/register'element={<Register />}/>
-                <Route path='/profile' element={
-                    <ProtectedRoute>
-                        <Profile />
-                    </ProtectedRoute>
-                }/>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/*" element={
+                    <>
+                        <Navbar />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/explore" element={<Explore />} />
+                            <Route path="/assistant" element={<Assistant />} />
+                            <Route path="/review" element={<Review />} />
+                            <Route path="/about" element={<About />} />
+                            <Route path='/profile' element={
+                                <ProtectedRoute>
+                                    <Profile />
+                                </ProtectedRoute>
+                            }/>
+                        </Routes>
+                    </>
+                } />
             </Routes>
         </BrowserRouter>
     );
