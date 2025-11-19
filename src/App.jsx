@@ -7,17 +7,17 @@ import Assistant from "./pages/Assistant";
 import Review from "./pages/Review";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import DetailMakanan from './pages/DetailMakanan';
 import { Register } from './pages/Register';
 import { Profile } from './pages/Profile';
 
-
-
 function App() {
-    return(
+    return (
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/makanan/:id" element={<DetailMakanan />} />
                 <Route path="/*" element={
                     <>
                         <Navbar />
@@ -31,7 +31,7 @@ function App() {
                                 <ProtectedRoute>
                                     <Profile />
                                 </ProtectedRoute>
-                            }/>
+                            } />
                         </Routes>
                     </>
                 } />
@@ -40,4 +40,4 @@ function App() {
     );
 }
 
-export default App
+export default App;
