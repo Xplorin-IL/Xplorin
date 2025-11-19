@@ -26,7 +26,7 @@ function Home(){
                             <br/> Discover the
                             <br/> Culture</h1>
                     </Link>
-                    <p className="text-center text-[var(--primary-color)] text-shadow-lg/20 text-[0.8rem] md:text-2xl font-medium mt-10">
+                    <p className="text-center text-[var(--primary-color)] text-shadow-lg/20 text-[0.8rem] md:text-2xl font-medium mt-11">
                         Xplorin is your go-to destination for culinary exploration, bringin your closer to genuine local <br /> 
                         Taste and lively network of food enthusiasts</p>
                 </div>
