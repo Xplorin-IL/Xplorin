@@ -8,7 +8,7 @@ import Review from "./pages/Review";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import { Register } from './pages/Register';
-import { Profile } from './pages/Profile';
+import ProfileScreen from './pages/Profile';
 
 
 
@@ -18,6 +18,11 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/profile" element={
+                    <ProtectedRoute>
+                        <ProfileScreen />
+                    </ProtectedRoute>
+                } />
                 <Route path="/*" element={
                     <>
                         <Navbar />
@@ -27,11 +32,6 @@ function App() {
                             <Route path="/assistant" element={<Assistant />} />
                             <Route path="/review" element={<Review />} />
                             <Route path="/about" element={<About />} />
-                            <Route path='/profile' element={
-                                <ProtectedRoute>
-                                    <Profile />
-                                </ProtectedRoute>
-                            }/>
                         </Routes>
                     </>
                 } />
