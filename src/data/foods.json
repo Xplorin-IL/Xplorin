@@ -1,0 +1,171 @@
+[
+    {
+        "id": 1,
+        "name": "Pempek Kapal Selam",
+        "price": "Rp.15,000 - 20,000",
+        "description": "The most iconic type of Pempek from Palembang. Made from fish and tapioca dough, shaped large and filled with a whole egg inside. It is boiled, then fried, and served with cuko — a sweet, sour, and spicy vinegar-based sauce. Rich, savory, and deeply satisfying.",
+        "mainImage": "/images/imagesMakanan/main/PempekKapalSelam.png",
+        "gallery": [
+            "/images/imagesMakanan/gallery/PempekKapalSelam1",
+            "/images/imagesMakanan/gallery/PempekKapalSelam2",
+            "/images/imagesMakanan/gallery/PempekKapalSelam3"
+        ],
+        "history": "Pempek Kapal Selam was created as a variation of traditional Pempek. Its name 'submarine' comes from the large shape and the egg hidden inside, resembling the contents of a submarine. Today, it is considered the signature dish of Palembang cuisine."
+    },
+    {
+        "id" : 2,
+        "name" : "Mie Celor",
+        "price" : "Rp.22.000 - 25.000",
+        "description" : "Palembang-style fish ball soup. Small fish balls in a clear broth with mushrooms, glass noodles, and jicama. Light but full of flavor.",
+        "mainImage" : "/images/imagesMakanan/main/MieCelor.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/MieCelor1",
+            "/images/imagesMakanan/gallery/MieCelor2",
+            "/images/imagesMakanan/gallery/MieCelor3"
+        ],
+        "history" : "The word “tekwan” is believed to come from Hokkien Chinese “tio kwan,” meaning “meet and chat.” It was a dish served in gatherings, showing Chinese influence in Palembang cuisine."
+    },
+    {
+        "id" : 3,
+        "name" : "Laksan",
+        "price" : "Rp.15.000 - 20.000",
+        "description" : "Thick oval fish cakes served in spicy coconut milk gravy. Rich, creamy, and slightly spicy – like a heavier version of burgo.",
+        "mainImage" : "/images/imagesMakanan/main/Laksan.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/Laksan1",
+            "/images/imagesMakanan/gallery/Laksan2",
+            "/images/imagesMakanan/gallery/Laksan3"
+        ],
+        "history" : "Laksan is usually served during Eid and big family events in Palembang. It’s considered a festive dish, symbolizing warmth and togetherness."
+    },
+    {
+        "id" : 4,
+        "name" : "Pindang Patin",
+        "price" : "Rp.30.000 - 45.000",
+        "description" : "Palembang’s most loved dishes. It’s a sour and spicy fish soup made with patin (catfish), pineapple, lemongrass, chili, and other spices. The broth is light but packed with flavor – fresh, tangy, and a little hot, perfect with a plate of warm rice. The catfish is tender and soaks up all the seasoning, making every bite super tasty.",
+        "mainImage" : "/images/imagesMakanan/main/PindangPatin.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/PindangPatin1",
+            "/images/imagesMakanan/gallery/PindangPatin2",
+            "/images/imagesMakanan/gallery/PindangPatin3"
+        ],
+        "history" : "Pindang has been around since the days of the Palembang Sultanate. Locals who lived along the Musi River had easy access to freshwater fish, so they developed a cooking style that could keep the fish fresh and flavorful. Instead of frying or grilling, they boiled it with lots of spices, creating a sour-spicy soup that could last longer."
+    },
+    {
+        "id" : 5,
+        "name" : "Celimpungan",
+        "price" : "Rp.12.000 - 20.000",
+        "description" : "Small round fish dumplings cooked in yellow coconut milk soup with turmeric and spices. Creamy, fragrant, and very filling.",
+        "mainImage" : "/images/imagesMakanan/main/Celimpungan.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/Celimpungan1",
+            "/images/imagesMakanan/gallery/Celimpungan2",
+            "/images/imagesMakanan/gallery/Celimpungan3"
+        ],
+        "history" : "The name comes from the word celimpung (rolling around in water). It’s a traditional comfort food, often cooked for family meals or gatherings."
+    },
+    {
+        "id" : 6,
+        "name" : "Pempek",
+        "price" : "Rp.15.000 - 20.000",
+        "description" : "The superstar of Palembang food! Fish mixed with tapioca flour, chewy texture, and always eaten with cuko – a dark sweet-spicy sauce. Types include lenjer (long stick), kapal selam (with egg inside), adaan (fried balls), and kulit (fish skin).",
+        "mainImage" : "/images/imagesMakanan/main/Pempek.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/pempek1",
+            "/images/imagesMakanan/gallery/pempek2",
+            "/images/imagesMakanan/gallery/pempek3"
+        ],
+        "history" : "Pempek has been around since the 16th century. People by the Musi River wanted a new way to enjoy fish, so they mixed it with sago. The name comes from “apek,” an old Chinese man who first sold it. People calling “pek..pek” turned into “pempek.”"
+    },
+    {
+        "id" : 7,
+        "name" : "Kemplang",
+        "price" : "Rp.15.000 - 20.000",
+        "description" : "Kemplang is a crunchy grilled fish cracker, made from fish and tapioca, then roasted until crispy. Usually eaten as a snack or side dish with sambal.",
+        "mainImage" : "/images/imagesMakanan/main/Kemplang.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/Kemplang1",
+            "/images/imagesMakanan/gallery/Kemplang2",
+            "/images/imagesMakanan/gallery/Kemplang3"
+        ],
+        "history" : "Kemplang has been a traditional snack for generations in Palembang, created as a way to preserve fish. Unlike regular fried crackers, locals preferred grilling, which made it lighter and gave a smoky flavor."
+    },
+    {
+        "id" : 8,
+        "name" : "Tekwan",
+        "price" : "Rp.15.000 - 20.000",
+        "description" : "Palembang-style fish ball soup. Small fish balls in a clear broth with mushrooms, glass noodles, and jicama. Light but full of flavor.",
+        "mainImage" : "/images/imagesMakanan/main/Tekwan.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/Tekwan1",
+            "/images/imagesMakanan/gallery/Tekwan2",
+            "/images/imagesMakanan/gallery/Tekwan3"
+        ],
+        "history" : "The word “tekwan” is believed to come from Hokkien Chinese “tio kwan,” meaning “meet and chat.” It was a dish served in gatherings, showing Chinese influence in Palembang cuisine."
+    },
+    {
+        "id" : 9,
+        "name" : "Es Kacang Merah",
+        "price" : "Rp.12.000 - 15.000",
+        "description" : "A refreshing dessert made of red beans served with shaved ice, syrup, and condensed milk. Sweet, cold, and perfect for hot Palembang weather.",
+        "mainImage" : "/images/imagesMakanan/main/EsKacangMerah.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/EsKacangMerah1",
+            "/images/imagesMakanan/gallery/EsKacangMerah2",
+            "/images/imagesMakanan/gallery/EsKacangMerah3"
+        ],
+        "history" : "This dessert came from Chinese influence, where sweet beans were commonly used in snacks. Palembang locals turned it into an iced treat to fight the tropical heat."
+    },
+    {
+        "id" : 10,
+        "name" : "Kue 8 Jam",
+        "price" : "Rp.70.000 - 80.000",
+        "description" : "As the name says, it literally takes eight hours to cook! Steamed with eggs, sugar, and condensed milk, making it sweet, dense, and rich. Special for big celebrations like weddings.",
+        "mainImage" : "/images/imagesMakanan/main/Kue8Jam.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/Kue8Jam1",
+            "/images/imagesMakanan/gallery/Kue8Jam2",
+            "/images/imagesMakanan/gallery/Kue8Jam3"
+        ],
+        "history" : "Kue 8 Jam has been around since the Palembang Sultanate era. It was once served only at weddings and big ceremonies because it was expensive and took hours to make, making it a symbol of luxury. Today, it’s a Palembang icon that visitors love to try."
+    },
+    {
+        "id" : 11,
+        "name" : "Kue Gandus",
+        "price" : "Rp.8.000 - 10.000",
+        "description" : "A soft steamed rice flour cake topped with spiced minced meat, fried shallots, and celery. The texture is smooth and silky, but the topping gives a savory punch.",
+        "mainImage" : "/images/imagesMakanan/main/KueGandus.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/KueGandus1",
+            "/images/imagesMakanan/gallery/KueGandus2",
+            "/images/imagesMakanan/gallery/KueGandus3"
+        ],
+        "history" : " Kue Gandus shows the mix of Malay and Chinese culinary influences in Palembang. Originally made for family gatherings and religious ceremonies, it became a favorite savory snack for everyday tea time."
+    },
+    {
+        "id" : 12,
+        "name" : "Pempek Lenggang",
+        "price" : "Rp.15.000 - 20.000",
+        "description" : "A special version of pempek – grilled fish cake mixed with beaten eggs, usually served with cucumber and cuko. Smoky, soft, and savory.",
+        "mainImage" : "/images/imagesMakanan/main/PempekLenggang.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/PempekLenggang1",
+            "/images/imagesMakanan/gallery/PempekLenggang2",
+            "/images/imagesMakanan/gallery/PempekLenggang3"
+        ],
+        "history" : "Pempek Lenggang started as a way to use leftover pempek dough. Locals mixed it with egg and grilled it, creating a new favorite that’s still enjoyed today."
+    },
+    {
+        "id" : 13,
+        "name" : "Martabak Kari",
+        "price" : "Rp.12.000 - 15.000",
+        "description" : " A refreshing dessert made of red beans served with shaved ice, syrup, and condensed milk. Sweet, cold, and perfect for hot Palembang weather.",
+        "mainImage" : "/images/imagesMakanan/main/MartabakKari.png",
+        "gallery" : [
+            "/images/imagesMakanan/gallery/MartabakKari1",
+            "/images/imagesMakanan/gallery/MartabakKari2",
+            "/images/imagesMakanan/gallery/MartabakKari3"
+        ],
+        "history" : "This dessert came from Chinese influence, where sweet beans were commonly used in snacks. Palembang locals turned it into an iced treat to fight the tropical heat."
+    }
+]

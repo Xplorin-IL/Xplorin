@@ -6,6 +6,7 @@ import Assistant from "./pages/Assistant";
 import Review from "./pages/Review";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import DetailMakanan from './pages/DetailMakanan';
 
 
 
@@ -19,7 +20,8 @@ function App() {
                 <Route path="/assistant" element={<Assistant />} />
                 <Route path="/review" element={<Review />} />
                 <Route path="/about" element={<About />} />
-                <Route path='/login'element={<Login />}/>
+                <Route path='/login' element={<Login />} />
+                <Route path='/makanan/:id' element={<DetailMakanan />} />
             </Routes>
         </BrowserRouter>
     );
