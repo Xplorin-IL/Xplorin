@@ -12,7 +12,7 @@ function Home(){
             <div className="w-full relative">
                 <div className="relative">
                     <img
-                        className="w-[110%] object-cover "
+                        className="w-[110%] object-cover"
                         src="/images/headline-image.png"
                         alt="Headline"
                     />
@@ -26,7 +26,7 @@ function Home(){
                             <br/> Discover the
                             <br/> Culture</h1>
                     </Link>
-                    <p className="text-center text-[var(--secondary-color)] text-shadow-lg/20 text-[0.8rem] md:text-2xl font-medium">
+                    <p className="text-center text-[var(--primary-color)] text-shadow-lg/20 text-[0.8rem] md:text-2xl font-medium mt-10">
                         Xplorin is your go-to destination for culinary exploration, bringin your closer to genuine local <br /> 
                         Taste and lively network of food enthusiasts</p>
                 </div>
