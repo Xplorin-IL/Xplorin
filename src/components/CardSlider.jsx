@@ -36,16 +36,16 @@ export default function CardSlider() {
 
     return (
         <section className={`
-            static  my-10  
-            bg-[url(/images/Wave.png)] bg-cover bg-bottom w-[100%]
+            static my-10 
+            bg-[url(/images/Wave.png)] bg-cover bg-bottom sm:w-[100%] md:w-[100%] lg:w-[100%]
         `}>
         {/* Background wave atas */}
 
         {/* Konten utama */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-10 px-10 md:px-20">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-10 px-10 md:px-20 ">
             {/* Text Section */}
-            <div className="sticky text-left bottom-500 right-500 text-shadow-lg/60">
-            <h1 className="text-[#8b0000] text-2xl md:text-5xl font-bold leading-snug">
+            <div className="sticky text-left bottom-500 right-500 text-shadow-lg/60 sm:-translate-y-1 md:-translate-y-10">
+            <h1 className="text-[#8b0000] text-2xl md:text-3xl lg:text-5xl font-bold leading-snug">
                 {food.title.split(" ").slice(0, 2).join(" ")} <br />
                 <span className="text-[#e1a800]">
                 {food.title.split(" ").slice(2).join(" ")}
@@ -58,13 +58,13 @@ export default function CardSlider() {
             <img
                 src={food.image}
                 alt={food.title}
-                className="rounded-lg object-cover w-[250px] md:w-[400vw] md:-translate-x-40"
+                className="rounded-lg object-cover w-[250px] md:w-[400vw] md:-translate-x-28 lg:-translate-x-40"
             />
             </div>
         </div>
 
         {/* Navigasi Dots */}
-        <div className="flex justify-center gap-2 py-4">
+        <div className="flex justify-center gap-2 py-4 md:-translate-y-10">
             {foodData.map((_, index) => (
             <button
                 key={index}
@@ -79,7 +79,7 @@ export default function CardSlider() {
         </div>
 
         {/* Deskripsi */}
-        <p className="text-center text-[#e1a800] text-sm md:text-base max-w-2xl mx-auto pb-10 px-4 text-shadow-lg/40">
+        <p className="text-center text-[#e1a800] text-sm md:text-base max-w-2xl mx-auto pb-10 px-4 text-shadow-lg/40 md:-translate-y-10">
             {food.desc}
         </p>
         </section>
