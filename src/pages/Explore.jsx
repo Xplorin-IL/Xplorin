@@ -4,7 +4,6 @@ import RestaurantList from "../components/RestaurantList"
 import ExploreFoodGalery from "../components/ExploreFoodGalery"
 import Footer from '../components/Footer';
 
-
 function Explore(){
     return(
         <>

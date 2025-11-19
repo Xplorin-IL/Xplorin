@@ -11,15 +11,15 @@ import PempekCandy from "../assets/images/exploreRestaurant_PempekCandy.png";
 import TokoHarum from "../assets/images/exploreRestaurant_Harum.png";
 
 const Restoran = [
-    { path:"/explore",img: Flamboyant, title: "Flamboyant", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: PondokPindangUmak, title: "Pondok Pindang Umak", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: MartabakHar, title: "Martabak Har", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: MieCelorSyafei, title: "Mie Celor H. Syafei 26 Ilir", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: RiverSide, title: "River Side", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: KampungPempek, title: "Kampung Pempek 26 Ilir", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: MegaCakes, title: "Mega Cakes Sukabangun", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: PempekCandy, title: "Pempek Candy", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
-    { path:"/explore", img: TokoHarum, title: "Toko Harum", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/pempek-flamboyant",img: Flamboyant, title: "Flamboyant", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/pindang-umak", img: PondokPindangUmak, title: "Pondok Pindang Umak", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/martabak-har", img: MartabakHar, title: "Martabak Har", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/mie-celor", img: MieCelorSyafei, title: "Mie Celor H. Syafei 26 Ilir", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/river-side", img: RiverSide, title: "River Side", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/kampung-pempek", img: KampungPempek, title: "Kampung Pempek 26 Ilir", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/mega-cakes", img: MegaCakes, title: "Mega Cakes Sukabangun", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/pempek-candy", img: PempekCandy, title: "Pempek Candy", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
+    { path:"/detail/toko-harum", img: TokoHarum, title: "Toko Harum", width: "28vw", height: "auto", hover: "hover:bg-white", text: "hover:text-[var(--primary-color)]",},
 ];
 
 export default function RestaurantList() {
