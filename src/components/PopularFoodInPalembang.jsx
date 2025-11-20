@@ -9,13 +9,13 @@ import gambarLaksan from "../assets/images/explorePopularFoodInPalembang_Laksan.
 import gambarPempek from "../assets/images/explorePopularFoodInPalembang_Pempek.png";
 
 const foodData = [
-  { img: gambarPindang, path: "/" },
-  { img: gambarMartabakHar, path: "/" },
-  { img: gambarTekwan, path: "/" },
-  { img: gambarEsKacangMerah, path: "/" },
-  { img: gambarMieCelor, path: "/" },
-  { img: gambarLaksan, path: "/" },
-  { img: gambarPempek, path: "/" },
+  { id: 4, img: gambarPindang, path: "/makanan/4" },
+  { id: 9, img: gambarMartabakHar, path: "/makanan/9" },
+  { id: 10, img: gambarTekwan, path: "/makanan/10" },
+  { id: 11, img: gambarEsKacangMerah, path: "/makanan/11" },
+  { id: 2, img: gambarMieCelor, path: "/makanan/2" },
+  { id: 3, img: gambarLaksan, path: "/makanan/3" },
+  { id: 6, img: gambarPempek, path: "/makanan/6" },
 ];
 
 export default function PopularFoodInPalembang() {
