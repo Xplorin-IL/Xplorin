@@ -8,12 +8,12 @@ import { NavLink } from "react-router-dom";
 import ButtonExplore from "../components/ButtonExplore";
 
 const galleryItems = [
-  { img: KapalSelem, path: "/" },
-  { img: PempekKecil, path: "/" },
-  { img: Kemplang, path: "/" },
-  { img: Lenggang, path: "/" },
-  { img: Laksan, path: "/" },
-  { img: MieCelor, path: "/" },
+  { id: 1, img: KapalSelem, path: "/makanan/1" },
+  { id: 6, img: PempekKecil, path: "/makanan/6" },
+  { id: 7, img: Kemplang, path: "/makanan/7" },
+  { id: 8, img: Lenggang, path: "/makanan/8" },
+  { id: 3, img: Laksan, path: "/makanan/3" },
+  { id: 2, img: MieCelor, path: "/makanan/2" },
 ];
 
 export default function FoodGallery() {

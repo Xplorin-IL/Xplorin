@@ -7,59 +7,39 @@ import Assistant from "./pages/Assistant";
 import Review from "./pages/Review";
 import About from "./pages/About";
 import Login from "./pages/Login";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { Register } from './pages/Register';
-import { Profile } from './pages/Profile';
-
-
-=======
+import ProfileScreen from './pages/Profile';
 import DetailRestaurant from './components/DetailRestaurant';
->>>>>>> page/detailRestaurant
-
-=======
 import DetailMakanan from './pages/DetailMakanan';
-import { Register } from './pages/Register';
-import { Profile } from './pages/Profile';
 
->>>>>>> 8334fc12d9bfd1bd93983b8c1c4d0ee3b0c7c429
 function App() {
-    return (
+    return(
         <BrowserRouter>
             <Routes>
-<<<<<<< HEAD
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/makanan/:id" element={<DetailMakanan />} />
+                <Route path="/profile" element={
+                    <ProtectedRoute>
+                        <ProfileScreen />
+                    </ProtectedRoute>
+                } />
                 <Route path="/*" element={
                     <>
                         <Navbar />
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/explore" element={<Explore />} />
+                            <Route path="/detail/:restaurantSlug" element={<DetailRestaurant />} />
+                            <Route path="/makanan/:id" element={<DetailMakanan />} />
                             <Route path="/assistant" element={<Assistant />} />
                             <Route path="/review" element={<Review />} />
                             <Route path="/about" element={<About />} />
-                            <Route path='/profile' element={
-                                <ProtectedRoute>
-                                    <Profile />
-                                </ProtectedRoute>
-                            } />
                         </Routes>
                     </>
                 } />
-=======
-                <Route path="/" element={<Home />} />
-                <Route path="/explore" element={<Explore />} />
-                <Route path="/detail/:restaurantSlug" element={<DetailRestaurant />} />
-                <Route path="/assistant" element={<Assistant />} />
-                <Route path="/review" element={<Review />} />
-                <Route path="/about" element={<About />} />
-                <Route path='/login'element={<Login />}/>
->>>>>>> page/detailRestaurant
             </Routes>
         </BrowserRouter>
     );
 }
 
-export default App;
+export default App
