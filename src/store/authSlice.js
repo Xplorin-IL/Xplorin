@@ -49,8 +49,16 @@ const authSlice = createSlice({
       localStorage.removeItem('user');
     },
     updateUser: (state, action) => {
-      state.user = { ...state.user, ...action.payload };
-      localStorage.setItem('user', JSON.stringify(state.user));
+      console.log('🔄 Redux updateUser called with:', action.payload);
+      console.log('📦 Current user:', state.user);
+      
+      // Create new user object with updated fields
+      const updatedUser = { ...state.user, ...action.payload };
+      state.user = updatedUser;
+      
+      // Save to localStorage
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      console.log('✅ Redux user updated:', updatedUser);
     }
   }
 });

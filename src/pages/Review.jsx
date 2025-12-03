@@ -7,6 +7,14 @@ const bodyBackground = 'min-h-screen pt-28 pb-10 flex flex-col items-center font
 
 const Review = () => {
   const [activeTab, setActiveTab] = useState('addReview');
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleReviewSubmitted = () => {
+    // Trigger refresh untuk UserReviewsTab
+    setRefreshTrigger(prev => prev + 1);
+    // Pindah ke tab User Reviews
+    setActiveTab('userReviews');
+  };
 
   const baseClasses = 'py-4 px-8 rounded-t-2xl font-bold text-xl sm:text-2xl border-2 border-red-800 transition-colors duration-300';
   
@@ -18,9 +26,9 @@ const Review = () => {
 
   const renderTabContent = () => {
     if (activeTab === 'addReview') {
-      return <AddReviewTab />;
+      return <AddReviewTab onReviewSubmitted={handleReviewSubmitted} />;
     }
-    return <UserReviewsTab />; 
+    return <UserReviewsTab refreshTrigger={refreshTrigger} />; 
   };
 
   return (

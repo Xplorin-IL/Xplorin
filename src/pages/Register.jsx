@@ -18,7 +18,7 @@ export const Register = () => {
       // Gabungkan firstName dan lastName untuk full_name
       const fullName = `${data.firstName} ${data.lastName}`.trim();
       
-      const response = await axios.post('http://localhost:3000/api/auth/register', {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
         username: data.username,
         email: data.email,
         password: data.password,

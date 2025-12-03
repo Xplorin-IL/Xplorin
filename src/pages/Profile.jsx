@@ -3,8 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateUser } from '../store/authSlice';
 import { FiCamera, FiChevronLeft, FiEdit2 } from 'react-icons/fi';
+import { updateUserProfile } from '../api/profileApi';
 
 const ACCENT_COLOR = '#800000';
+
+// Dummy list for username validation (you can replace with API call)
+const USED_USERNAMES = ['admin', 'test123', 'user456'];
+
+const checkUsernameAvailability = async (newUsername) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(!USED_USERNAMES.includes(newUsername.toLowerCase()));
+    }, 500);
+  });
+};
 
 // Helper function to convert full_name to firstName and lastName
 const parseFullName = (fullName = '') => {
@@ -19,6 +31,34 @@ const parseFullName = (fullName = '') => {
 const getInitials = (name = '') => {
   if (!name) return 'U';
   return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+};
+
+// Helper function to compress image
+const compressImage = (base64String, maxWidth = 400, quality = 0.7) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+
+      // Calculate new dimensions
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Convert to compressed base64
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.src = base64String;
+  });
 };
 
 const Button = ({ children, onClick, className = '', style, type = 'button', disabled = false }) => {
@@ -81,15 +121,22 @@ const SectionCard = ({ title, children, onEdit }) => (
 const EditModal = ({ title, fields, initialData, onSave, onClose }) => {
   const [formData, setFormData] = useState(initialData);
   const [errors, setErrors] = useState({});
-  const [isSaving, setIsSaving] = useState(false);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const newFormData = { ...formData, [name]: value };
+    setFormData(newFormData);
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
     }
-  }, [errors]);
+  }, [errors, formData]);
+
+  const handleDone = () => {
+    // Save changes when user clicks Done
+    console.log('💾 Modal Done - saving changes:', formData);
+    onSave(formData);
+    onClose();
+  };
 
   const handleBlur = useCallback(async (e) => {
     const { name, value } = e.target;
@@ -107,53 +154,16 @@ const EditModal = ({ title, fields, initialData, onSave, onClose }) => {
     }
   }, [initialData.username]);
 
-  const validate = () => {
-    let newErrors = {};
-    fields.forEach(field => {
-      if (field.required && !formData[field.name]) {
-        newErrors[field.name] = `${field.label} is required.`;
-      }
-    });
-
-    if (errors.username && errors.username !== 'Checking availability...' && !newErrors.username) {
-        newErrors.username = errors.username;
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0 && errors.username !== 'Checking availability...';
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      setIsSaving(true);
-      setTimeout(() => {
-        onSave(formData);
-        setIsSaving(false);
-        onClose();
-      }, 800);
-    }
-  };
-
-  const isFormValid = useMemo(() => {
-    const requiredFieldNames = fields.filter(f => f.required).map(f => f.name);
-    const requiredFieldsFilled = requiredFieldNames.every(name => formData[name] && formData[name].trim() !== '');
-    const noValidationErrors = Object.values(errors).every(e => !e);
-
-    return !isSaving && requiredFieldsFilled && noValidationErrors;
-  }, [isSaving, errors, formData, fields]);
-
-
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-50 backdrop-filter backdrop-blur-sm bg-black bg-opacity-50">
-      <div className="bg-white rounded-xl w-full max-w-sm sm:max-w-lg shadow-xl border border-gray-200">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-50 backdrop-blur-md bg-white/30">
+      <div className="bg-white rounded-xl w-full max-w-sm sm:max-w-lg shadow-2xl border-2 border-gray-200">
         <div className="p-4 border-b flex justify-between items-center" style={{ borderColor: ACCENT_COLOR }}>
           <h3 className="text-lg sm:text-xl font-bold text-gray-800" style={{ color: ACCENT_COLOR }}>{title}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition">
             <FiChevronLeft size={20} style={{ color: ACCENT_COLOR }} />
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
+        <div className="p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
           {fields.map(field => (
             <InputField
               key={field.name}
@@ -167,25 +177,28 @@ const EditModal = ({ title, fields, initialData, onSave, onClose }) => {
               error={errors[field.name]}
             />
           ))}
-          <div className="flex flex-col sm:flex-row gap-3 sm:justify-end mt-6">
-            <Button type="button" onClick={onClose} className="border w-full sm:w-auto">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end mt-6">
+            <Button 
+              type="button" 
+              onClick={onClose}
+              className="w-full sm:w-auto"
+            >
               Cancel
             </Button>
-            
             <Button 
-              type="submit" 
+              type="button" 
+              onClick={handleDone}
               style={{ 
                   backgroundColor: ACCENT_COLOR, 
                   color: 'white', 
                   borderColor: ACCENT_COLOR,
               }}
-              className="hover:opacity-90 disabled:opacity-50 w-full sm:w-auto"
-              disabled={!isFormValid}
+              className="w-full sm:w-auto"
             >
-              {isSaving ? 'Saving...' : 'Save Changes'}
+              Done
             </Button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
@@ -196,13 +209,46 @@ const ProfileHeader = ({ userData, onPictureChange }) => {
 
   const handleCameraClick = () => fileInputRef.current.click();
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
+      console.log('📸 File selected:', file.name, 'Size:', file.size, 'Type:', file.type);
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        event.target.value = ''; // Reset input
+        return;
+      }
+
+      // Validate file size (5MB max before compression)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size too large. Please select an image under 5MB');
+        event.target.value = ''; // Reset input
+        return;
+      }
+
       const reader = new FileReader();
-      reader.onloadend = () => onPictureChange(reader.result);
+      reader.onloadend = async () => {
+        try {
+          console.log('🖼️ Image loaded, compressing...');
+          // Compress image before saving
+          const compressedImage = await compressImage(reader.result, 400, 0.7);
+          console.log('✅ Image compressed, size:', compressedImage.length, 'chars');
+          onPictureChange(compressedImage);
+        } catch (error) {
+          console.error('❌ Error compressing image:', error);
+          alert('Failed to process image. Please try another image.');
+        }
+      };
+      reader.onerror = (error) => {
+        console.error('❌ Error reading file:', error);
+        alert('Failed to read file. Please try again.');
+      };
       reader.readAsDataURL(file);
     }
+    // Reset input to allow same file selection
+    event.target.value = '';
   };
 
   return (
@@ -252,10 +298,12 @@ const ProfileItem = ({ label, value }) => (
 );
 
 export const ProfileScreen = ({ navigateToHome }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modalType, setModalType] = useState(null);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Initialize userData from Redux user state
   const [userData, setUserData] = useState(() => {
@@ -279,63 +327,65 @@ export const ProfileScreen = ({ navigateToHome }) => {
     return {};
   });
 
-  // Update userData when Redux user changes
-  useEffect(() => {
-    if (user) {
-      const { firstName, lastName } = parseFullName(user.full_name);
-      setUserData({
-        fullName: user.full_name || '',
-        username: user.username || '',
-        location: user.location || 'Not specified',
-        profilePicture: user.profile_picture || `https://placehold.co/100x100/f0e0d0/800000?text=${getInitials(user.full_name)}`,
-        firstName: firstName,
-        lastName: lastName,
-        dateOfBirth: user.date_of_birth || '',
-        email: user.email || '',
-        phoneNumber: user.phone_number || '',
-        country: user.country || '',
-        city: user.city || '',
-        postalCode: user.postal_code || '',
-      });
-    }
-  }, [user]);
+  // No useEffect sync - only use initial state from Redux
+  // Updates only happen through handleSave and Save Changes button
 
   const openModal = (type) => setModalType(type);
   const closeModal = () => setModalType(null);
 
   const handleSave = useCallback((newFields) => {
+    console.log('✏️ Handling field updates:', newFields);
+    
     setUserData(prev => {
       const updatedData = { ...prev, ...newFields };
-      if (newFields.city || newFields.country) {
-          updatedData.location = `${updatedData.city}, ${updatedData.country}`;
-      }
+      
+      // Update fullName if firstName or lastName changed
       if (newFields.firstName || newFields.lastName) {
-          updatedData.fullName = `${updatedData.firstName} ${updatedData.lastName}`;
+          updatedData.fullName = `${newFields.firstName || prev.firstName} ${newFields.lastName || prev.lastName}`;
       }
+      
+      // Update location if city or country changed
+      if (newFields.city || newFields.country) {
+          const newCity = newFields.city || prev.city;
+          const newCountry = newFields.country || prev.country;
+          updatedData.location = `${newCity}, ${newCountry}`;
+      }
+      
       return updatedData;
     });
 
-    // Dispatch to Redux store
-    const updatePayload = {
-      full_name: `${newFields.firstName || userData.firstName} ${newFields.lastName || userData.lastName}`,
-      date_of_birth: newFields.dateOfBirth || userData.dateOfBirth,
-      email: newFields.email || userData.email,
-      phone_number: newFields.phoneNumber || userData.phoneNumber,
-      country: newFields.country || userData.country,
-      city: newFields.city || userData.city,
-      postal_code: newFields.postalCode || userData.postalCode,
-    };
-    
-    dispatch(updateUser(updatePayload));
-  }, [userData, dispatch]);
+    setHasChanges(true);
+  }, []);
 
-  const handlePictureChange = useCallback((newUrl) => {
-    setUserData(prev => ({ ...prev, profilePicture: newUrl }));
+  const handlePictureChange = useCallback(async (newUrl) => {
+    console.log('📸 Profile picture changed, saving to backend...');
+    setIsSaving(true);
     
-    // Dispatch to Redux store
-    dispatch(updateUser({ profile_picture: newUrl }));
-    console.log("Profile picture updated.");
-  }, [dispatch]);
+    try {
+      // Update profile picture via API
+      const response = await updateUserProfile(token, { profile_picture: newUrl });
+      
+      if (response.success && response.data) {
+        console.log('✅ Profile picture saved, updating state...');
+        
+        // Update Redux
+        dispatch(updateUser(response.data));
+        
+        // Update local state
+        setUserData(prev => ({ 
+          ...prev, 
+          profilePicture: response.data.profile_picture || newUrl 
+        }));
+        
+        console.log('✨ Profile picture updated successfully');
+      }
+    } catch (error) {
+      console.error('❌ Error updating profile picture:', error);
+      alert('Failed to update profile picture. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
+  }, [token, dispatch]);
 
   const handleBackToHome = () => {
     navigate('/');
@@ -416,6 +466,123 @@ export const ProfileScreen = ({ navigateToHome }) => {
             <ProfileItem label="Postal Code" value={userData.postalCode} />
           </ProfileSectionData>
         </SectionCard>
+
+        {/* Save/Discard Buttons - Always visible but disabled when no changes */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-end mt-6">
+          <Button 
+            onClick={() => {
+              console.log('🔙 Discarding changes, reverting to Redux state');
+              // Revert to Redux user state
+              if (user) {
+                const { firstName, lastName } = parseFullName(user.full_name);
+                const revertedData = {
+                  fullName: user.full_name || '',
+                  username: user.username || '',
+                  location: user.location || (user.city && user.country ? `${user.city}, ${user.country}` : 'Not specified'),
+                  profilePicture: user.profile_picture || `https://placehold.co/100x100/f0e0d0/800000?text=${getInitials(user.full_name)}`,
+                  firstName: firstName,
+                  lastName: lastName,
+                  dateOfBirth: user.date_of_birth || '',
+                  email: user.email || '',
+                  phoneNumber: user.phone_number || '',
+                  country: user.country || '',
+                  city: user.city || '',
+                  postalCode: user.postal_code || '',
+                };
+                setUserData(revertedData);
+              }
+              setHasChanges(false);
+              console.log('✅ Changes discarded');
+            }}
+            disabled={!hasChanges}
+            className="w-full sm:w-auto"
+          >
+            Discard Changes
+          </Button>
+            <Button 
+              onClick={async () => {
+                setIsSaving(true);
+                try {
+                  // Prepare data untuk backend
+                  const profileData = {
+                    full_name: userData.fullName,
+                    date_of_birth: userData.dateOfBirth,
+                    email: userData.email,
+                    phone_number: userData.phoneNumber || null,
+                    country: userData.country,
+                    city: userData.city,
+                    postal_code: userData.postalCode,
+                    location: userData.location,
+                  };
+
+                  // Only include profile_picture if it's not a placeholder
+                  if (userData.profilePicture && !userData.profilePicture.includes('placehold.co')) {
+                    profileData.profile_picture = userData.profilePicture;
+                  }
+
+                  console.log('💾 Saving profile data...', profileData);
+
+                  // Save to backend
+                  const response = await updateUserProfile(token, profileData);
+                  
+                  console.log('✅ Backend response:', response);
+                  
+                  // Update Redux store dengan data dari backend
+                  if (response.success && response.data) {
+                    console.log('🔄 Updating Redux store and local state...');
+                    
+                    // Update Redux store
+                    dispatch(updateUser(response.data));
+                    
+                    // Update local state to match backend response
+                    const { firstName, lastName } = parseFullName(response.data.full_name);
+                    const updatedLocalData = {
+                      fullName: response.data.full_name || '',
+                      username: response.data.username || '',
+                      location: response.data.location || (response.data.city && response.data.country ? `${response.data.city}, ${response.data.country}` : 'Not specified'),
+                      profilePicture: response.data.profile_picture || `https://placehold.co/100x100/f0e0d0/800000?text=${getInitials(response.data.full_name)}`,
+                      firstName: firstName,
+                      lastName: lastName,
+                      dateOfBirth: response.data.date_of_birth || '',
+                      email: response.data.email || '',
+                      phoneNumber: response.data.phone_number || '',
+                      country: response.data.country || '',
+                      city: response.data.city || '',
+                      postalCode: response.data.postal_code || '',
+                    };
+                    
+                    console.log('✨ Setting userData to:', updatedLocalData);
+                    setUserData(updatedLocalData);
+                    
+                    // Reset hasChanges flag
+                    console.log('🏁 Resetting hasChanges flag');
+                    setHasChanges(false);
+                  }
+                  
+                  // Show success message
+                  alert('✅ Profile updated successfully!');
+                  
+                  console.log('🎉 Save complete');
+                  
+                } catch (error) {
+                  console.error('❌ Error saving profile:', error);
+                  const errorMessage = error.response?.data?.message || error.message || 'Failed to save profile';
+                  alert(`❌ Error: ${errorMessage}`);
+                } finally {
+                  setIsSaving(false);
+                }
+              }}
+              disabled={!hasChanges || isSaving}
+              style={{ 
+                backgroundColor: ACCENT_COLOR, 
+                color: 'white', 
+                borderColor: ACCENT_COLOR,
+              }}
+              className="hover:opacity-90 disabled:opacity-50 w-full sm:w-auto"
+            >
+              {isSaving ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </div>
       </main>
 
       {/* Modals */}

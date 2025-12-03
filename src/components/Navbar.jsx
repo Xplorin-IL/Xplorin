@@ -89,9 +89,24 @@ const Navbar = () => {
                             className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-[#8b0000] 
                                 hover:bg-[#8b0000] transition-all group"
                         >
-                            <div className="w-8 h-8 rounded-full bg-[#8b0000] group-hover:bg-white 
-                                flex items-center justify-center text-white group-hover:text-[#8b0000] 
-                                font-bold text-sm transition-all">
+                            {user?.profile_picture ? (
+                                <img 
+                                    src={user.profile_picture} 
+                                    alt="Profile" 
+                                    className="w-8 h-8 rounded-full object-cover border-2 border-white group-hover:border-[#8b0000]"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'flex';
+                                    }}
+                                />
+                            ) : null}
+                            <div 
+                                className="w-8 h-8 rounded-full bg-[#8b0000] group-hover:bg-white 
+                                    flex items-center justify-center text-white group-hover:text-[#8b0000] 
+                                    font-bold text-sm transition-all"
+                                style={{ display: user?.profile_picture ? 'none' : 'flex' }}
+                            >
                                 {getInitials(user?.full_name || user?.username)}
                             </div>
                             <span className="text-[0.8rem] lg:text-base text-[#8b0000] font-bold 

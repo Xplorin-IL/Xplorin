@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { submitReview } from '../api/reviewApi';
 
-const AddReviewTab = () => {
+const AddReviewTab = ({ onReviewSubmitted }) => {
   const [rating, setRating] = useState(0); 
   const [hover, setHover] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -15,10 +17,48 @@ const AddReviewTab = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalFormData = { ...formData, rating: rating };
-    console.log('Submitted Review:', finalFormData);
+    
+    if (rating === 0) {
+      alert('Mohon berikan rating bintang terlebih dahulu!');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const reviewData = {
+        name: formData.name,
+        email: formData.email,
+        review_text: formData.review,
+        rating: rating
+      };
+
+      const response = await submitReview(reviewData);
+      
+      if (response.success) {
+        alert('✅ Review berhasil ditambahkan! Terima kasih atas feedback Anda.');
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          review: '',
+          rating: 0,
+        });
+        setRating(0);
+
+        // Trigger refresh user reviews
+        if (onReviewSubmitted) {
+          onReviewSubmitted();
+        }
+      }
+    } catch (error) {
+      alert('❌ Gagal menambahkan review: ' + error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   const customBackgroundColor = 'rgba(120, 11, 13, 0.3)';
@@ -64,6 +104,8 @@ const AddReviewTab = () => {
             {label === 'Write Your Review' ? (
               <textarea
                 name="review"
+                value={formData.review}
+                onChange={handleChange}
                 placeholder="Write here..."
                 className="outline-none border-2 border-red-900 rounded-md p-3 text-base w-full shadow-md h-24 resize-none bg-white"
                 required
@@ -72,6 +114,8 @@ const AddReviewTab = () => {
               <input
                 type={label === 'Email' ? 'email' : 'text'}
                 name={label.toLowerCase()}
+                value={formData[label.toLowerCase()]}
+                onChange={handleChange}
                 placeholder={label === 'Name' ? 'Type here...' : 'email@gmail.com'}
                 className="outline-none border-2 border-red-900 rounded-md p-3 text-base w-full shadow-md bg-white"
                 required
@@ -83,9 +127,10 @@ const AddReviewTab = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-white text-red-800 font-bold text-xl border-2 border-red-800 rounded-md py-2 px-10 cursor-pointer transition-colors duration-200 mt-8 hover:bg-red-800 hover:text-white"
+          disabled={isSubmitting}
+          className="bg-white text-red-800 font-bold text-xl border-2 border-red-800 rounded-md py-2 px-10 cursor-pointer transition-colors duration-200 mt-8 hover:bg-red-800 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          SUBMIT
+          {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
         </button>
       </form>
     </nav>

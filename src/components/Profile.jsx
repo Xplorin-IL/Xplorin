@@ -52,22 +52,11 @@ const ChevronLeftIcon = ({ size = 30, color = 'currentColor', className = '' }) 
   </svg>
 );
 
-const ACCENT_COLOR = '#800000';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import { getUserProfile, updateUserProfile } from '../api/profileApi';
+import { useSelector } from 'react-redux';
 
-const initialUserData = {
-  fullName: "Jihan Larasati",
-  username: "jihanlarasti1",
-  location: "Makassar, Indonesia",
-  profilePicture: "https://placehold.co/100x100/f0e0d0/800000?text=JL", 
-  firstName: "Jihan",
-  lastName: "Larasti",
-  dateOfBirth: "01-01-2001",
-  email: "jihann@gmail.com",
-  phoneNumber: "0123456789",
-  country: "Indonesia",
-  city: "Makassar",
-  postalCode: "303061",
-};
+const ACCENT_COLOR = '#800000';
 
 const USED_USERNAMES = ['admin', 'jihanlarasti2', 'jihanlarasti3', 'jihanlarasti4'];
 
@@ -308,29 +297,149 @@ const ProfileItem = ({ label, value }) => (
 );
 
 export const ProfileScreen = ({ navigateToHome }) => {
-  const [userData, setUserData] = useState(initialUserData);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [modalType, setModalType] = useState(null);
+  const token = useSelector((state) => state.auth.token);
+
+  // Fetch user profile on component mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await getUserProfile(token);
+        
+        if (response.success && response.data) {
+          const user = response.data;
+          
+          // Transform API data to match component state structure
+          const transformedData = {
+            fullName: user.full_name || '',
+            username: user.username || '',
+            location: user.location || `${user.city || ''}, ${user.country || ''}`,
+            profilePicture: user.profile_picture || "https://placehold.co/100x100/f0e0d0/800000?text=User",
+            firstName: user.full_name ? user.full_name.split(' ')[0] : '',
+            lastName: user.full_name ? user.full_name.split(' ').slice(1).join(' ') : '',
+            dateOfBirth: user.date_of_birth || '',
+            email: user.email || '',
+            phoneNumber: user.phone_number || '',
+            country: user.country || '',
+            city: user.city || '',
+            postalCode: user.postal_code || '',
+          };
+          
+          setUserData(transformedData);
+        }
+      } catch (err) {
+        console.error('Error fetching profile:', err);
+        setError('Failed to load profile data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (token) {
+      fetchProfile();
+    }
+  }, [token]);
 
   const openModal = (type) => setModalType(type);
   const closeModal = () => setModalType(null);
 
-  const handleSave = useCallback((newFields) => {
-    setUserData(prev => {
-      const updatedData = { ...prev, ...newFields };
+  const handleSave = useCallback(async (newFields) => {
+    try {
+      // Prepare data for API
+      const updateData = {};
+      
+      // Map frontend field names to backend field names
+      if (newFields.firstName !== undefined || newFields.lastName !== undefined) {
+        const firstName = newFields.firstName || userData.firstName;
+        const lastName = newFields.lastName || userData.lastName;
+        updateData.full_name = `${firstName} ${lastName}`.trim();
+      }
+      
+      if (newFields.username !== undefined) {
+        updateData.username = newFields.username;
+      }
+      
+      if (newFields.dateOfBirth !== undefined) {
+        updateData.date_of_birth = newFields.dateOfBirth;
+      }
+      
+      if (newFields.email !== undefined) {
+        updateData.email = newFields.email;
+      }
+      
+      if (newFields.phoneNumber !== undefined) {
+        updateData.phone_number = newFields.phoneNumber;
+      }
+      
+      if (newFields.country !== undefined) {
+        updateData.country = newFields.country;
+      }
+      
+      if (newFields.city !== undefined) {
+        updateData.city = newFields.city;
+      }
+      
+      if (newFields.postalCode !== undefined) {
+        updateData.postal_code = newFields.postalCode;
+      }
+      
+      // Update location if city or country changed
       if (newFields.city || newFields.country) {
-          updatedData.location = `${updatedData.city}, ${updatedData.country}`;
+        const city = newFields.city || userData.city;
+        const country = newFields.country || userData.country;
+        updateData.location = `${city}, ${country}`;
       }
-      if (newFields.firstName || newFields.lastName) {
-          updatedData.fullName = `${updatedData.firstName} ${updatedData.lastName}`;
-      }
-      return updatedData;
-    });
-  }, []);
 
-  const handlePictureChange = useCallback((newUrl) => {
-    setUserData(prev => ({ ...prev, profilePicture: newUrl }));
-    console.log("Profile picture updated.");
-  }, []);
+      // Call API to update profile
+      const response = await updateUserProfile(token, updateData);
+      
+      if (response.success && response.data) {
+        const user = response.data;
+        
+        // Update local state with fresh data from backend
+        const transformedData = {
+          fullName: user.full_name || '',
+          username: user.username || '',
+          location: user.location || `${user.city || ''}, ${user.country || ''}`,
+          profilePicture: user.profile_picture || userData.profilePicture,
+          firstName: user.full_name ? user.full_name.split(' ')[0] : '',
+          lastName: user.full_name ? user.full_name.split(' ').slice(1).join(' ') : '',
+          dateOfBirth: user.date_of_birth || '',
+          email: user.email || '',
+          phoneNumber: user.phone_number || '',
+          country: user.country || '',
+          city: user.city || '',
+          postalCode: user.postal_code || '',
+        };
+        
+        setUserData(transformedData);
+        console.log('Profile updated successfully');
+      }
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      alert('Failed to update profile. Please try again.');
+    }
+  }, [token, userData]);
+
+  const handlePictureChange = useCallback(async (newUrl) => {
+    try {
+      // Update profile picture via API
+      const response = await updateUserProfile(token, { profile_picture: newUrl });
+      
+      if (response.success && response.data) {
+        setUserData(prev => ({ ...prev, profilePicture: response.data.profile_picture || newUrl }));
+        console.log("Profile picture updated successfully.");
+      }
+    } catch (err) {
+      console.error('Error updating profile picture:', err);
+      alert('Failed to update profile picture. Please try again.');
+    }
+  }, [token]);
 
 
   const personalFields = useMemo(() => ([
@@ -343,12 +452,12 @@ export const ProfileScreen = ({ navigateToHome }) => {
   ]), []);
 
   const personalData = useMemo(() => ({
-    firstName: userData.firstName,
-    lastName: userData.lastName,
-    dateOfBirth: userData.dateOfBirth,
-    email: userData.email,
-    phoneNumber: userData.phoneNumber,
-    username: userData.username,
+    firstName: userData?.firstName || '',
+    lastName: userData?.lastName || '',
+    dateOfBirth: userData?.dateOfBirth || '',
+    email: userData?.email || '',
+    phoneNumber: userData?.phoneNumber || '',
+    username: userData?.username || '',
   }), [userData]);
 
   const addressFields = useMemo(() => ([
@@ -358,10 +467,40 @@ export const ProfileScreen = ({ navigateToHome }) => {
   ]), []);
 
   const addressData = useMemo(() => ({
-    country: userData.country,
-    city: userData.city,
-    postalCode: userData.postalCode,
+    country: userData?.country || '',
+    city: userData?.city || '',
+    postalCode: userData?.postalCode || '',
   }), [userData]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: ACCENT_COLOR }}></div>
+          <p className="text-gray-600">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error || !userData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error || 'Failed to load profile'}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 rounded-lg"
+            style={{ backgroundColor: ACCENT_COLOR, color: 'white' }}
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
 
   return (
